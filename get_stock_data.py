@@ -10,8 +10,7 @@ from datetime import datetime
 print('This program allows you to enter in each stock manually or import from')
 print('a file named ticker_list.csv.')
 
-choose_option = input('Type 0 to manually enter ticker symbols or 1 to import file: ')
-choose_option = int(choose_option)
+choose_option = int(input('Type 0 to manually enter ticker symbols or 1 to import file: '))
 
 #test to see if 0 or 1 was entered and loop until user chooses either or enters a string
 while choose_option != 1 and choose_option != 0:
