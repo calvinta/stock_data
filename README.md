@@ -1,2 +1,2 @@
-# get_stock_data
+# stock_data
 Download adjusted close price stock data from pandas-datareader web api
