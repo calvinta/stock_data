@@ -14,13 +14,21 @@ import os
 # Start of GUI code
 window = tk.Tk()
 window.title("Get Stock Data")
-window.geometry("760x400") # W x H
+window.geometry("760x430") # W x H
 
 # Section for functions
 def open_file():
 	global filename
 	filename = filedialog.askopenfilename(initialdir = '/Documents', title = 'Select File', filetypes = (('CSV Files','*.csv'), ('All Files', '*')))
 	show_file_imported.config(text = 'File imported is ' + filename)
+
+def save_file():
+	files = [('CSV Document', '*.csv'), ('All Files', '*.*')]
+	file = filedialog.asksaveasfile(filetypes = files, defaultextension = files)
+	if file == None:
+		save_label.config(text = 'Save canceled.', fg = 'red')
+	else:
+		save_label.config(text = 'Save completed.')
 
 def get_adj_close():
 	stock_df = pd.read_csv(filename, header = None)
@@ -46,9 +54,7 @@ def get_adj_close():
 
 	master_df = master_df.groupby(pd.Grouper(freq = v.get())).mean()
 
-	#export to same folder as python file as csv file
-	master_df.to_csv(r'stock_data.csv')
-	done_label.config(text = 'Export complete as stock_data.csv.')
+	done_label.config(text = 'Execution complete.')
 
 
 # Section for widgets
@@ -95,5 +101,11 @@ execute_button.pack(anchor = tk.W, padx = 10, pady = 5)
 done_label = tk.Label(window, text = '', fg = 'green')
 done_label.pack(anchor = tk.W, padx = 10)
 
+
+save_button = tk.Button(window, text = 'Save', command = lambda:save_file())
+save_button.pack(anchor = tk.W, padx = 10, pady = 1)
+
+save_label = tk.Label(window, text = '', fg = 'green')
+save_label.pack(anchor = tk.W, padx = 10)
 
 window.mainloop()
