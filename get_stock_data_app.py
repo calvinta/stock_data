@@ -19,9 +19,7 @@ window.geometry("760x400") # W x H
 # Section for functions
 def open_file():
 	global filename
-	filename = filedialog.askopenfilename(initialdir = '/Documents', 
-										  title = 'Select File', 
-										  filetypes = (('CSV Files','*.csv'), ('All Files', '*')))
+	filename = filedialog.askopenfilename(initialdir = '/Documents', title = 'Select File', filetypes = (('CSV Files','*.csv'), ('All Files', '*')))
 	show_file_imported.config(text = 'File imported is ' + filename)
 
 def get_adj_close():
@@ -58,11 +56,8 @@ tk.Label(window,
 		 text = 'Import a CSV file with ticker symbols to download adjusted close prices.').pack(anchor = tk.W,
 		 																						 padx = 10,
 																								 pady = 5)
-import_button = tk.Button(window, 
-						  text = 'Import tickers from file', 
-						  command = open_file)
-import_button.pack(anchor = tk.W,
-				   padx = 10)
+import_button = tk.Button(window, text = 'Import tickers from file', command = open_file)
+import_button.pack(anchor = tk.W, padx = 10)
 
 show_file_imported = tk.Label(window, text = '', fg = 'blue')
 show_file_imported.pack(anchor = tk.W, padx = 10, pady = 5)
@@ -82,9 +77,7 @@ v.set(-1) # so none of the radiobuttons are selected during start up
 freq_options = [("Daily","d"), ("Weekly","w"), ("Monthly","m")]
 
 tk.Label(window, text = 'Choose the frequency:',
-				 anchor = tk.W).pack(anchor = tk.W,
-									 padx = 10,
-									 pady = 5)
+				 anchor = tk.W).pack(anchor = tk.W, padx = 10, pady = 5)
 
 for frequency, letter in freq_options:
 	freq_buttons = tk.Radiobutton(window, 
@@ -93,14 +86,10 @@ for frequency, letter in freq_options:
 				   variable = v, 
 				   value = letter)
 	
-	freq_buttons.pack(side = tk.TOP,
-					  anchor = tk.W,
-					  padx = 10)
+	freq_buttons.pack(side = tk.TOP, anchor = tk.W, padx = 10)
 
 
-execute_button = tk.Button(window,
-						   text = 'Execute',
-						   command = get_adj_close)
+execute_button = tk.Button(window, text = 'Execute', command = get_adj_close)
 execute_button.pack(anchor = tk.W, padx = 10, pady = 5)
 
 done_label = tk.Label(window, text = '', fg = 'green')
