@@ -22,14 +22,6 @@ def open_file():
 	filename = filedialog.askopenfilename(initialdir = '/Documents', title = 'Select File', filetypes = (('CSV Files','*.csv'), ('All Files', '*')))
 	show_file_imported.config(text = 'File imported is ' + filename)
 
-def save_file():
-	files = [('CSV Document', '*.csv'), ('All Files', '*.*')]
-	file = filedialog.asksaveasfile(filetypes = files, defaultextension = files)
-	if file == None:
-		save_label.config(text = 'Save canceled.', fg = 'red')
-	else:
-		save_label.config(text = 'Save completed.')
-
 def get_adj_close():
 	stock_df = pd.read_csv(filename, header = None)
 	ticker_list = []
@@ -55,6 +47,14 @@ def get_adj_close():
 	master_df = master_df.groupby(pd.Grouper(freq = v.get())).mean()
 
 	done_label.config(text = 'Execution complete.')
+	
+	files = [('CSV Document', '*.csv'), ('All Files', '*.*')]
+	filepath = filedialog.asksaveasfile(filetypes = files, defaultextension = files)
+	if filepath == None:
+		save_label.config(text = 'Save canceled.', fg = 'red')
+	else:
+		save_label.config(text = 'Save completed.')
+	master_df.to_csv(filepath)
 
 
 # Section for widgets
@@ -95,14 +95,7 @@ for frequency, letter in freq_options:
 	freq_buttons.pack(side = tk.TOP, anchor = tk.W, padx = 10)
 
 
-execute_button = tk.Button(window, text = 'Execute', command = get_adj_close)
-execute_button.pack(anchor = tk.W, padx = 10, pady = 5)
-
-done_label = tk.Label(window, text = '', fg = 'green')
-done_label.pack(anchor = tk.W, padx = 10)
-
-
-save_button = tk.Button(window, text = 'Save', command = lambda:save_file())
+save_button = tk.Button(window, text = 'Save', command = get_adj_close)
 save_button.pack(anchor = tk.W, padx = 10, pady = 1)
 
 save_label = tk.Label(window, text = '', fg = 'green')
